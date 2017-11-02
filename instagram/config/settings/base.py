@@ -12,60 +12,42 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import json
 import os
-import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # instagram_project/
 ROOT_DIR = os.path.dirname(BASE_DIR)
 
-# instagram_project/.config_secret/
+# CONFIG
 CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
+CONFIG_SECRET_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
+CONFIG_SECRET_DEV_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_dev.json')
+CONFIG_SECRET_DEPLOY_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_deploy.json')
 
-# instagram_project/instagram/media
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+config_secret_common = json.loads(open(CONFIG_SECRET_COMMON_FILE).read())
+
+# media
+MEDIA_ROOT = os.path.join(BASE_DIR, '.media')
 MEDIA_URL = '/media/'
-# instagram_project/instagram/static
+
+# static
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
-
-with open(os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')) as f:
-    config_secret_common_str = f.read()
-
-config_secret_common = json.loads(config_secret_common_str)
-# AWS
-AWS_ACCESS_KEY_ID = config_secret_common['aws']['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = config_secret_common['aws']['AWS_SECRET_ACCESS_KEY']
-AWS_STORAGE_BUCKET_NAME = config_secret_common['aws']['S3_BUCKET_NAME']
-
-# S3 FileStorage
-DEFAULT_FILE_STORAGE = 'config.storages.MediaStorage'
-STATICFILES_STORAGE = 'config.storages.StaticStorage'
-
-STATICFILES_LOCATION = 'static'
-MEDIAFILES_LOCATION = 'media'
-
-AUTH_USER_MODEL = 'member.User'
-LOGIN_URL = 'member:login'
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config_secret_common["django"]["secret_key"]
+STATIC_URL = '/static/'
 
 # FACEBOOK
 FACEBOOK_APP_ID = config_secret_common['facebook']['app_id']
 FACEBOOK_APP_SECRET_CODE = config_secret_common['facebook']['secret_code']
 FACEBOOK_APP_SCOPE = ['user_friends', 'public_profile', 'email']
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+AUTH_USER_MODEL = 'member.User'
+LOGIN_URL = 'member:login'
 
-ALLOWED_HOSTS = []
+# SECURITY WARNING: keep the secret key used in production secret!
+
 
 # Application definition
 
@@ -114,11 +96,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = config_secret_common["django"]["databases"]
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -150,7 +127,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+DEBUG = True
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
-STATIC_URL = '/static/'
