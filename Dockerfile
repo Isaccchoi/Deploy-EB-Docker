@@ -1,4 +1,4 @@
-FROM            base
+FROM            isaccchoi/base
 MAINTAINER      isaccchoi@naver.com
 
 ENV             LANG C.UTF-8

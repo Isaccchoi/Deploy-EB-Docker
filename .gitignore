@@ -246,3 +246,8 @@ venv.bak/
 .idea/
 .config_secret/
 /.config/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
