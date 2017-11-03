@@ -2,6 +2,7 @@ FROM            isaccchoi/base
 MAINTAINER      isaccchoi@naver.com
 
 ENV             LANG C.UTF-8
+ENV             DJANGO_SETTINGS_MODULE config.settings.dev
 
 
 # 파일 복사 및 requirements설치
