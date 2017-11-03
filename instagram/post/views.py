@@ -13,8 +13,8 @@ def post_list(request):
         "posts": posts,
         "comment_form": PostCommentForm,
     }
-    # return render(request, 'post/post_list.html', context)
-    return render(request, 'post/index.html', context)
+    return render(request, 'post/post_list.html', context)
+    # return render(request, 'post/index.html', context)
 
 
 @login_required
