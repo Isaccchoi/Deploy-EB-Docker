@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import json
 import os
+import raven
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -62,6 +63,7 @@ INSTALLED_APPS = [
     # 3rd party
     'django_extensions',
     'storages',
+    'raven.contrib.django.raven_compat',
     # custom
     'post',
     'member',
@@ -132,3 +134,11 @@ DEBUG = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+
+
+RAVEN_CONFIG = {
+    'dsn': 'https://b47a2bdb404641d79a15cadcbe63d1f3:c0475990b6664f9db99f08e66da128b3@sentry.io/248296',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
+}
